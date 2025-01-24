@@ -45,7 +45,7 @@ export class DemoApp {
         camera.radius = 20
         camera.fov = Tools.ToRadians(110)
         // this.scene.createDefaultEnvironment()
-        this.scene.createDefaultSkybox(undefined, false, 2)
+        // this.scene.createDefaultSkybox(undefined, false, 2)
         this.setupGround()
         this.setupPhysics()
         this.setupUI()

@@ -50,47 +50,53 @@ export function createLilGui(guiId: string = "dataGUI"): LilGui {
     return gui
 }
 
+function isDebugVisible(scene: Scene) {
+    if (scene.debugLayer && typeof scene.debugLayer.isVisible === "function") {
+        const visible = scene.debugLayer.isVisible()
+        if (visible === undefined) {
+            return false
+        }
+        return visible
+    }
+    return false
+}
+
+function onDebugChange(scene: Scene, camera: Nullable<Camera>, value: boolean) {
+    if (value) {
+        scene.debugLayer.show({
+            overlay: true,
+            showExplorer: true,
+            showInspector: true,
+            embedMode: false,
+            handleResize: true,
+            enablePopup: true,
+            enableClose: true,
+            gizmoCamera: camera as Camera,
+        })
+        const sceneExplorer = document.getElementById("scene-explorer-host")
+        if (sceneExplorer) {
+            sceneExplorer.style.zIndex = "101"
+        }
+        const inspector = document.getElementById("inspector-host")
+        if (inspector) {
+            inspector.style.zIndex = "101"
+        }
+    } else {
+        scene.debugLayer.hide()
+    }
+}
+
 export function enableDebug(scene: Scene, gui: LilGui, camera: Nullable<Camera>, enableFullscreen: boolean = false) {
     const folder = gui.addFolder("Debug")
-    const isDebugEnable = () => {
-        if (scene.debugLayer) {
-            return scene.debugLayer.isVisible()
-        }
-        return false
-    }
-    const onDebugChange = (value: boolean) => {
-        if (value) {
-            scene.debugLayer.show({
-                overlay: true,
-                showExplorer: true,
-                showInspector: true,
-                embedMode: false,
-                handleResize: true,
-                enablePopup: true,
-                enableClose: true,
-                gizmoCamera: camera as Camera,
-            })
-            const sceneExplorer = document.getElementById("scene-explorer-host")
-            if (sceneExplorer) {
-                sceneExplorer.style.zIndex = "101"
-            }
-            const inspector = document.getElementById("inspector-host")
-            if (inspector) {
-                inspector.style.zIndex = "101"
-            }
-        } else {
-            scene.debugLayer.hide()
-        }
-    }
     let isDebugLoaded = false
-    folder.add({ "enable": isDebugEnable() }, "enable").onChange((value: boolean) => {
+    folder.add({ "enable": isDebugVisible(scene) }, "enable").onChange((value: boolean) => {
         if (isDebugLoaded) {
-            onDebugChange(value)
+            onDebugChange(scene, camera, value)
             return
         }
         import("./debug.ts").then(() => {
             isDebugLoaded = true
-            onDebugChange(value)
+            onDebugChange(scene, camera, value)
         }).catch(err => {
             console.warn(err)
         })
