@@ -1,0 +1,32 @@
+# Restart the editor after modifying the configuration
+# Documentation：https://editorconfig.org/
+
+# Informs the EditorConfig plugin that the root file is currently
+root = true
+
+# Applies to all documents
+[*]
+## Setting the character set
+charset = utf-8
+## Indentation style space | tab, space recommended (will be automatically inherited from Prettier)
+indent_style = space
+## Number of spaces for indentation (which is automatically inherited from Prettier)
+indent_size = 4
+## Line break type lf | cr | crlf, usually set to lf
+end_of_line = lf
+## Whether to insert a blank line at the end of the file
+insert_final_newline = true
+## Whether or not to delete the space before and after a line
+trim_trailing_whitespace = true
+
+# Applies to .md files
+[*.md]
+insert_final_newline = false
+trim_trailing_whitespace = false
+
+[{package.json,tsconfig.json}]
+indent_size = 2
+
+[*.env*]
+insert_final_newline = false
+trim_trailing_whitespace = false

@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+
+    /* Bundler mode */
+    "moduleResolution": "Node",
+    "noResolve": false,
+    "sourceMap": true,
+    "removeComments": true,
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /** baseUrl is used to tell the compiler where to look for modules,
+    and must be configured when using non-relative modules. */
+    "baseUrl": ".",
+    /** Path mapping configuration for non-relative module import,
+    path calculation based on baseUrl configuration */
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "types/**/*.d.ts",
+    "vite.config.ts"
+  ],
+  /** Compiled files excluded by the compiler by default */
+  "exclude": ["node_modules", "dist"]
+}
