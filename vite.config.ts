@@ -23,6 +23,15 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
         strictPort: true,
     },
     build: {
+        minify: 'terser',
+        terserOptions: {
+            compress: {
+                drop_console: true,
+                drop_debugger: true
+            },
+            maxWorkers: 4
+        },
+        outDir: "dist",
         /* Warning if the size of a single chunk file exceeds 2048KB */
         chunkSizeWarningLimit: 2048,
         /* Disable gzip compression size reporting */

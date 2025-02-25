@@ -9,7 +9,7 @@ cd bbl-inspector-demo
 pnpm install
 pnpm add @babylonjs/core @babylonjs/gui @babylonjs/havok @babylonjs/inspector
 pnpm add lil-gui simple-notify screenfull @neodrag/vanilla
-pnpm add -D @types/node
+pnpm add -D @types/node terser
 pnpm run dev
 ```
 
